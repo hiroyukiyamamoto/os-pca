@@ -1,3 +1,3 @@
 # os-pca
 
-in preparation...
+Orthogonal smoothed principal component analysis
