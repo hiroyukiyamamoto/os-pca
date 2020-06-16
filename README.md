@@ -1,3 +1,3 @@
 # os-pca
 
-Orthogonal smoothed principal component analysis
+Source code of orthogonal smoothed principal component analysis(OS-PCA)
