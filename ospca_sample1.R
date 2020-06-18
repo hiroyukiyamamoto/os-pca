@@ -94,4 +94,17 @@ for(i in 1:ncol(X)){
 
 R <- cbind(R1,R2)
 P <- cbind(P1,P2)
+
+# -----------------------
+#   Contribution Ratio
+# -----------------------
+l <- NULL
+for(i in 1:(nrow(X)-1)){
+  l[i] <- cov(t[,i],s[,i])
+}
+print(100*abs(l)/sum(abs(l)))
+
+lambda <- svd(G%*%t(X)%*%X)$d[1:(nrow(X)-1)]
+print(100*lambda/sum(lambda))
+
            

@@ -2,9 +2,9 @@ rm(list=ls(all=TRUE))
 
 # GreenTea metabolome data by Tsugawa
 
-# -------------------------------------
-#   OS-PCA : Orthogonal smoothed PCA
-# -------------------------------------
+# -------------------------------------------------------
+#   OS-PCA : Orthogonal smoothed PCA for repeated data
+# -------------------------------------------------------
 # // file
 file <- "C:/R/data/GreenTeaMetabolome.csv"
 DATA0 <- read.csv(file)
@@ -31,7 +31,7 @@ Y <- scale(Y, scale=FALSE)
 # ------------------------
 D <- diff(diff(Y)) # Second-order differential
 
-kappa <- 0.2 # smoothing parameter
+kappa <- 0.1 # smoothing parameter
 #kappa <- 0 # PCA
 
 M <- NULL
@@ -58,7 +58,7 @@ z <- svd(t(MX)%*%MX%*%solve(R))$v
 W2 <- solve(R)%*%z
 
 s <- MX%*%W2
-  
+
 # factor loading
 rs <- NULL;rt <- NULL;pt <- NULL
 for(i in 1:ncol(X)){
@@ -84,3 +84,15 @@ ALL <- data.frame(M=as.character(DATA0[-1,1]),w=W0[,1],R=rt,p=pt, q=p.adjust(pt,
 write.csv(ALL, file="C:/R/PC1.csv")
 
 #plot(rt, W0[,1])
+
+# -----------------------
+#   Contribution Ratio
+# -----------------------
+l <- NULL
+for(i in 1:(nrow(MX)-1)){
+  l[i] <- cov(MX%*%W0[,i],MX%*%W2[,i]) # cov(Mt,Ms)
+}
+print(100*abs(l)/sum(abs(l)))
+
+lambda <- svd(t(MX)%*%MX%*%solve(R))$d[1:(nrow(MX)-1)]
+print(100*lambda/sum(lambda))
