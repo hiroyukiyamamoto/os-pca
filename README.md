@@ -1,4 +1,4 @@
-# OS-PCA: Orthogonal Smoothed Principal Component Analysis
+OS-PCA: Orthogonal Smoothed Principal Component Analysis
 ================
 
 ### Paper
